@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getNewsBySlug, getNewsSlugList } from '@/lib/news';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -38,11 +39,13 @@ export default async function NewsDetailPage({ params }: PageProps) {
             {/* 封面图片 */}
             {article.coverImage && (
               <div className="w-full mb-6 rounded-xl overflow-hidden shadow-lg">
-                <img
+                <Image
                   src={article.coverImage}
                   alt={article.title}
                   className="w-full object-cover"
                   style={{ aspectRatio: '16/9' }}
+                  width={800}
+                  height={450}
                 />
               </div>
             )}

@@ -2,6 +2,7 @@ import { getAllNews } from '@/lib/news';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Image from 'next/image';
 
 export default function NewsListPage() {
   const allNews = getAllNews();
@@ -36,10 +37,12 @@ export default function NewsListPage() {
                     {/* 封面图片 - 手机横屏比例 16:9 */}
                     {article.coverImage && (
                       <div className="w-full" style={{ aspectRatio: '16/9' }}>
-                        <img
+                        <Image
                           src={article.coverImage}
                           alt={article.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          width={400}
+                          height={225}
                         />
                       </div>
                     )}
