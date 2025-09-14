@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import News from "@/components/News";
-import AutumnCup from "@/components/AutumnCup";
+import Activities from "@/components/Activities";
 import DutCup from "@/components/DutCup";
 import SchoolCup from "@/components/SchoolCup";
 import CheckIn from "@/components/CheckIn";
@@ -11,21 +11,20 @@ import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen">
       <Navbar />
-      <div className="h-screen overflow-y-scroll snap-y snap-mandatory">
-        {/* 粘滞滚动的Section */}
+      <div className="pt-[8vh]">
         <Section id="news">
           <News />
         </Section>
-        <Section id="autumn-cup">
-          <AutumnCup />
-        </Section>
-        <Section id="orange-cup">
-          <DutCup />
+        <Section id="activities">
+          <Activities />
         </Section>
         <Section id="school-cup">
           <SchoolCup />
+        </Section>
+        <Section id="dut-cup">
+          <DutCup />
         </Section>
         <Section id="check-in">
           <CheckIn />
@@ -33,18 +32,14 @@ export default function Home() {
         <Section id="card-diy">
           <CardDIY />
         </Section>
-        
-        {/* 联系方式和Footer合并的Section - 使用特殊的粘滞效果 */}
         <section 
           id="contact" 
-          className="h-screen w-full snap-start flex flex-col overflow-hidden"
+          className="min-h-screen w-full flex flex-col"
         >
-          {/* Contact占上部分70vh */}
           <Contact />
-          {/* Footer占下部分30vh */}
           <Footer />
         </section>
       </div>
-    </>
+    </div>
   );
 }

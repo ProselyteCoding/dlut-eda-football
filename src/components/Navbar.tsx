@@ -4,9 +4,9 @@ import { useState, useEffect, useMemo } from 'react';
 export default function Navbar() {
   const sections = useMemo(() => [
     { name: '新闻', id: 'news' },
-    { name: '金秋杯', id: 'autumn-cup' },
-    { name: '橙锋杯', id: 'orange-cup' },
-    { name: '大工杯', id: 'school-cup' },
+    { name: '活动', id: 'activities' },
+    { name: '橙锋杯', id: 'school-cup' },
+    { name: '大工杯', id: 'dut-cup' },
     { name: '打卡', id: 'check-in' },
     { name: '球星卡DIY', id: 'card-diy' },
     { name: '联系方式', id: 'contact' }
@@ -49,16 +49,25 @@ export default function Navbar() {
 
   // 点击导航项滚动到对应section
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // 检查当前页面是否为主页
+    const isHomePage = window.location.pathname === '/';
+    
+    if (isHomePage) {
+      // 在主页，直接滚动到对应section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // 不在主页，跳转到主页并定位到对应section
+      window.location.href = `/#${sectionId}`;
     }
   };
   
   return (
     <>
       <nav className="fixed top-0 left-0 w-full z-50 bg-[#1a214a] shadow-lg flex items-center px-8 h-[8vh] backdrop-blur-md">
-        <span className="text-blue-200 font-extrabold text-2xl tracking-widest drop-shadow-lg select-none">DLUT-EDA足球社</span>
+        <span className="text-blue-200 font-extrabold text-2xl tracking-widest drop-shadow-lg select-none">DLUT-EDA 足球社</span>
         <ul className="flex space-x-6 ml-20">
           {sections.map(section => (
             <li

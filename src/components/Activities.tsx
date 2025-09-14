@@ -1,5 +1,5 @@
 // 金秋杯
-export default function AutumnCup() {
+export default function Activities() {
   return (
     <section className="h-screen w-full bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center">
       <div className="max-w-6xl mx-auto px-6 text-center">

@@ -4,7 +4,7 @@ import './globals.css';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-cn">
-      <body className="bg-gray-50 min-h-screen flex flex-col">
+      <body className="bg-gray-50 min-h-screen">
         {children}
       </body>
     </html>
