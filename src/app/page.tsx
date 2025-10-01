@@ -8,12 +8,17 @@ import SchoolCup from "@/components/SchoolCup";
 import CheckIn from "@/components/CheckIn";
 import CardDIY from "@/components/CardDIY";
 import Contact from "@/components/Contact";
+import VideoHero from "@/components/VideoHero";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <div className="pt-[8vh]">
+      {/* 视频 Hero Section - 全屏，不需要 padding */}
+      <VideoHero />
+      
+      {/* 其他内容区域 */}
+      <div>
         <Section id="news">
           <NewsContainer />
         </Section>

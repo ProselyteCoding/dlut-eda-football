@@ -15,6 +15,31 @@ export default function Navbar() {
   ], []);
 
   const [activeSection, setActiveSection] = useState('news');
+  const [isVisible, setIsVisible] = useState(false); // 控制 Navbar 显示/隐藏
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // 监听滚动位置，控制 Navbar 显示/隐藏
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // 滚动超过 50px 才显示 Navbar
+      if (currentScrollY > 50) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // 初始化检查
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   // 监听滚动，更新当前激活的section
   useEffect(() => {
@@ -66,9 +91,15 @@ export default function Navbar() {
     }
   };
   
+  
   return (
-    <>
-      <nav className={`fixed top-0 left-0 w-full z-50 shadow-lg flex items-center justify-between px-8 h-[8vh] backdrop-blur-md transition-colors duration-300 ${
+    <div className={`fixed left-0 w-full z-50 transition-all duration-500 ease-in-out ${
+      isVisible 
+        ? 'top-0 opacity-100 translate-y-0' 
+        : '-top-[calc(8vh+14px)] opacity-0 -translate-y-full'
+    }`}>
+      {/* Navbar */}
+      <nav className={`w-full shadow-lg flex items-center justify-between px-8 h-[8vh] backdrop-blur-md transition-colors duration-1000 ${
         theme === 'dark' ? 'bg-slate-800' : 'bg-[#1a214a]'
       }`}>
         <span className={`font-extrabold text-2xl tracking-widest drop-shadow-lg select-none transition-colors duration-300 ${
@@ -119,7 +150,9 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
-      <div className="fixed top-[8vh] left-0 w-full h-[14px] z-40 bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 animate-gradient-x"></div>
-    </>
+      
+      {/* 渐变装饰条 - 作为整体的一部分 */}
+      <div className="w-full h-[14px] bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 animate-gradient-x"></div>
+    </div>
   );
 }
