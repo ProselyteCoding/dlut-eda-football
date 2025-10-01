@@ -1,7 +1,9 @@
 'use client';
 import { useState, useEffect, useMemo } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function Navbar() {
+  const { theme, toggleTheme } = useTheme();
   const sections = useMemo(() => [
     { name: '新闻', id: 'news' },
     { name: '活动', id: 'activities' },
@@ -66,26 +68,56 @@ export default function Navbar() {
   
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#1a214a] shadow-lg flex items-center px-8 h-[8vh] backdrop-blur-md">
-        <span className="text-blue-200 font-extrabold text-2xl tracking-widest drop-shadow-lg select-none">DLUT-EDA 足球社</span>
-        <ul className="flex space-x-6 ml-20">
-          {sections.map(section => (
-            <li
-              key={section.name}
-              onClick={() => scrollToSection(section.id)}
-              className={`relative font-semibold text-lg px-5 py-2 rounded-xl transition-all duration-300 cursor-pointer select-none
-                hover:scale-105
-                ${activeSection === section.id 
-                  ? 'bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 bg-clip-text text-transparent scale-110 font-bold' 
-                  : 'text-white hover:text-blue-300'
-                }`}
-            >
-              <span className="inline-block align-middle transition-all duration-300">
-                {section.name}
-              </span>
-            </li>
-          ))}
-        </ul>
+      <nav className={`fixed top-0 left-0 w-full z-50 shadow-lg flex items-center justify-between px-8 h-[8vh] backdrop-blur-md transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-slate-800' : 'bg-[#1a214a]'
+      }`}>
+        <span className={`font-extrabold text-2xl tracking-widest drop-shadow-lg select-none transition-colors duration-300 ${
+          theme === 'dark' ? 'text-blue-300' : 'text-blue-200'
+        }`}>DLUT-EDA 足球社</span>
+        
+        <div className="flex items-center space-x-6">
+          <ul className="flex space-x-6">
+            {sections.map(section => (
+              <li
+                key={section.name}
+                onClick={() => scrollToSection(section.id)}
+                className={`relative font-semibold text-lg px-5 py-2 rounded-xl transition-all duration-300 cursor-pointer select-none
+                  hover:scale-105
+                  ${activeSection === section.id 
+                    ? 'bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 bg-clip-text text-transparent scale-110 font-bold' 
+                    : `${theme === 'dark' ? 'text-gray-200 hover:text-blue-300' : 'text-white hover:text-blue-300'}`
+                  }`}
+              >
+                <span className="inline-block align-middle transition-all duration-300">
+                  {section.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+          
+          {/* 主题切换按钮 */}
+          <button
+            onClick={toggleTheme}
+            className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+              theme === 'dark' 
+                ? 'bg-slate-700 hover:bg-slate-600 text-yellow-400' 
+                : 'bg-blue-800 hover:bg-blue-700 text-yellow-300'
+            }`}
+            title={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+          >
+            {theme === 'dark' ? (
+              // 太阳图标 (浅色模式)
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              // 月亮图标 (深色模式)
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+            )}
+          </button>
+        </div>
       </nav>
       <div className="fixed top-[8vh] left-0 w-full h-[14px] z-40 bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 animate-gradient-x"></div>
     </>

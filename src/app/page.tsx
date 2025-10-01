@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Section from "@/components/Section";
 import Footer from "@/components/Footer";
-import News from "@/components/News";
+import NewsContainer from "@/components/NewsContainer";
 import Activities from "@/components/Activities";
 import DutCup from "@/components/DutCup";
 import SchoolCup from "@/components/SchoolCup";
@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
       <div className="pt-[8vh]">
         <Section id="news">
-          <News />
+          <NewsContainer />
         </Section>
         <Section id="activities">
           <Activities />

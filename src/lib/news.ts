@@ -69,6 +69,19 @@ export function getAllNews(): NewsArticle[] {
 function getFallbackNews(): NewsArticle[] {
   return [
     {
+      slug: 'test-23',
+      title: '测试123',
+      content: `# 测试123
+
+## 新闻内容
+
+这里是新闻的详细内容...`,
+      publishDate: '2025年09月30日',
+      author: 'wyf',
+      tags: ['测试1', '测试2'],
+      coverImage: '/news-assets/test-23/cover.jpg'
+    },
+    {
       slug: 'orange-cup-2024-review',
       title: '2024年橙锋杯足球赛精彩回顾',
       content: `# 2024年橙锋杯足球赛精彩回顾
@@ -133,6 +146,8 @@ function getFallbackNews(): NewsArticle[] {
       tags: ['文化节', '校园活动', '足球文化'],
       coverImage: '/news-assets/football-culture-festival/cover.jpg'
     }
+
+
 
 
 

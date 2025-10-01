@@ -1,5 +1,5 @@
 {
-  "name": "dlut-football",
+  "name": "dlut-eda-football",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,12 +12,15 @@
     "news": "node scripts/add-news.js"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.1.0",
+    "antd": "^5.27.4",
     "gray-matter": "^4.0.3",
     "html2canvas": "^1.4.1",
     "next": "15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
