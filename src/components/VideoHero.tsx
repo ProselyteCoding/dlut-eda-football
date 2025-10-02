@@ -1,10 +1,51 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { getVideoFromCache, saveVideoToCache, revokeVideoURL } from '@/lib/videoCache';
 
 export default function VideoHero() {
   const { theme } = useTheme();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoSrc, setVideoSrc] = useState<string>('');
+
+  // 加载视频（优先从缓存）
+  useEffect(() => {
+    const loadVideo = async () => {
+      try {
+        // 1. 尝试从 IndexedDB 加载
+        const cachedVideo = await getVideoFromCache();
+        
+        if (cachedVideo) {
+          console.log('使用缓存视频');
+          setVideoSrc(cachedVideo);
+        } else {
+          // 2. 缓存不存在，使用原始路径
+          console.log('使用原始视频路径');
+          const originalPath = '/videos/hero-video.mp4';
+          setVideoSrc(originalPath);
+          
+          // 3. 后台缓存视频
+          saveVideoToCache(originalPath).catch(err => {
+            console.error('后台缓存视频失败:', err);
+          });
+        }
+      } catch (error) {
+        console.error('加载视频失败:', error);
+        // 失败时使用原始路径
+        setVideoSrc('/videos/hero-video.mp4');
+      }
+    };
+
+    loadVideo();
+
+    // 清理函数
+    return () => {
+      if (videoSrc && videoSrc.startsWith('blob:')) {
+        revokeVideoURL(videoSrc);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 平滑滚动到新闻模块
   const scrollToNews = () => {
@@ -17,20 +58,23 @@ export default function VideoHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* 全屏背景视频 */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
-        controls={false}
-        disablePictureInPicture
-        controlsList="nodownload nofullscreen noremoteplayback"
-      >
-        <source src="/videos/hero-video.mp4" type="video/mp4" />
-        您的浏览器不支持视频播放。
-      </video>
+      {videoSrc && (
+        <video
+          ref={videoRef}
+          key={videoSrc}
+          src={videoSrc}
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          controls={false}
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
+        >
+          您的浏览器不支持视频播放。
+        </video>
+      )}
 
       {/* 备用渐变背景 - 当视频未加载时显示 */}
       <div 

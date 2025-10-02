@@ -91,7 +91,7 @@ export default function News({ newsData }: NewsProps) {
                     <span className={`font-medium transition-colors ${
                       theme === 'dark' ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-700'
                     }`}>
-                      阅读更多 →
+                      阅读更多
                     </span>
                   </div>
                 </div>
@@ -101,14 +101,11 @@ export default function News({ newsData }: NewsProps) {
         </div>
         
         <div className="text-center mt-8">
-          <p className="text-gray-600 text-sm mb-4">
-            💡 只显示最新的3条新闻，点击查看详细内容
-          </p>
           <Link
             href="/news"
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            查看更多新闻 →
+            查看更多新闻
           </Link>
         </div>
       </div>

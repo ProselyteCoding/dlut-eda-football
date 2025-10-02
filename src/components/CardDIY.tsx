@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { message } from 'antd';
+import html2canvas from 'html2canvas-pro';
 import ThemedSection from './ThemedSection';
 import { useTheme } from '@/contexts/ThemeContext';
 import { textColors } from '@/utils/theme';
@@ -29,6 +30,8 @@ export default function CardDIY() {
   const imgRef = useRef<HTMLDivElement>(null);
   // 图片容器元素引用
   const containerRef = useRef<HTMLDivElement>(null);
+  // 球星卡预览区域引用（用于截图）
+  const cardRef = useRef<HTMLDivElement>(null);
   // 标记是否已经加载过图片
   const hasLoadedRef = useRef(false);
 
@@ -246,23 +249,40 @@ export default function CardDIY() {
 
   // 生成图片
   const handleGenerateImage = async () => {
-    if (containerRef.current) {
-      try {
-        // 这里可以集成html2canvas等库来生成图片
-        messageApi.info('图片生成功能开发中...');
-        // TODO: 集成 html2canvas
-        // const canvas = await html2canvas(containerRef.current);
-        // const dataUrl = canvas.toDataURL('image/png');
-        // // 下载图片
-        // const link = document.createElement('a');
-        // link.download = `${tempCard.name || '球星卡'}.png`;
-        // link.href = dataUrl;
-        // link.click();
-        // messageApi.success('球星卡图片已生成！');
-      } catch (error) {
-        console.error('生成图片失败:', error);
-        messageApi.error('生成图片失败，请重试！');
-      }
+    if (!cardRef.current) {
+      messageApi.error('球星卡预览区域未找到');
+      return;
+    }
+
+    try {
+      messageApi.loading('正在生成图片...', 0);
+      
+      // 使用 html2canvas-pro 截取球星卡区域（原生支持 lab/oklch 等现代颜色）
+      const canvas = await html2canvas(cardRef.current, {
+        backgroundColor: null, // 透明背景
+        scale: 2, // 提高清晰度
+        useCORS: true, // 允许跨域图片
+        logging: false, // 关闭日志
+        width: 320, // 固定宽度
+        height: 450, // 固定高度
+      });
+
+      // 转换为图片 URL
+      const dataUrl = canvas.toDataURL('image/png');
+      
+      // 创建下载链接
+      const link = document.createElement('a');
+      const fileName = `${tempCard.name || '球星卡'}_${new Date().getTime()}.png`;
+      link.download = fileName;
+      link.href = dataUrl;
+      link.click();
+
+      messageApi.destroy(); // 关闭 loading
+      messageApi.success('图片生成成功！');
+    } catch (error) {
+      messageApi.destroy();
+      console.error('生成图片失败:', error);
+      messageApi.error('生成图片失败，请重试！');
     }
   };
 
@@ -311,7 +331,7 @@ export default function CardDIY() {
         <div className="flex items-center gap-8 max-w-7xl">
           {/* 左侧：球星卡预览 */}
           <div className="flex-shrink-0">
-            <div className="relative w-80 h-[450px]">
+            <div ref={cardRef} className="relative w-80 h-[450px]">
               {/* 背景卡片图片 */}
               <Image
                 src="/images/card-background.png"
