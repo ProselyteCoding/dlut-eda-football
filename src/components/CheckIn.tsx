@@ -9,13 +9,13 @@ export default function CheckIn() {
   const { theme } = useTheme();
   return (
     <ThemedSection sectionKey="checkin">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h1 className={`text-6xl font-bold mb-8 transition-colors ${textColors[theme].primary}`}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 md:py-8 text-center">
+        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 lg:mb-8 transition-colors ${textColors[theme].primary}`}>
           训练打卡
         </h1>
-        <div className={`rounded-xl p-12 transition-all duration-300 ${textColors[theme].card} ${textColors[theme].cardBorder} ${textColors[theme].cardShadow}`}>
-          <h2 className={`text-3xl font-semibold mb-6 transition-colors ${textColors[theme].primary}`}>记录你的足球之路</h2>
-          <div className={`text-lg leading-relaxed mb-8 transition-colors ${textColors[theme].secondary}`}>
+        <div className={`rounded-xl p-6 md:p-8 lg:p-12 transition-all duration-300 ${textColors[theme].card} ${textColors[theme].cardBorder} ${textColors[theme].cardShadow}`}>
+          <h2 className={`text-xl md:text-2xl lg:text-3xl font-semibold mb-4 md:mb-6 transition-colors ${textColors[theme].primary}`}>记录你的足球之路</h2>
+          <div className={`text-base md:text-lg leading-relaxed mb-6 md:mb-8 transition-colors ${textColors[theme].secondary}`}>
             坚持训练，记录成长。每一次打卡都是向梦想迈进的一步。
           </div>
           

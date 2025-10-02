@@ -5,19 +5,19 @@ import ThemedSection from './ThemedSection';
 import { useTheme } from '@/contexts/ThemeContext';
 import { textColors } from '@/utils/theme';
 
-export default function Activities() {
+export default function AutumnCup() {
   const { theme } = useTheme();
   
   return (
-    <ThemedSection sectionKey="activities">
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <h1 className={`text-6xl font-bold mb-8 transition-colors ${
+    <ThemedSection sectionKey="autumncup">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8 text-center">
+        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 lg:mb-8 transition-colors ${
           theme === 'dark' ? 'text-orange-400' : 'text-amber-800'
         }`}>
           金秋杯足球赛
         </h1>
-        <div className={`rounded-xl p-12 mb-8 border transition-all duration-300 ${textColors[theme].card} ${textColors[theme].cardBorder} ${textColors[theme].cardShadow}`}>
-          <h2 className={`text-3xl font-semibold mb-6 transition-colors ${textColors[theme].primary}`}>赛事信息</h2>
+        <div className={`rounded-xl p-6 md:p-8 lg:p-12 mb-6 md:mb-8 border transition-all duration-300 ${textColors[theme].card} ${textColors[theme].cardBorder} ${textColors[theme].cardShadow}`}>
+          <h2 className={`text-xl md:text-2xl lg:text-3xl font-semibold mb-4 md:mb-6 transition-colors ${textColors[theme].primary}`}>赛事信息</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
             <div>
               <h3 className={`text-xl font-semibold mb-3 transition-colors ${

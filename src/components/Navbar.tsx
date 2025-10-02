@@ -7,16 +7,16 @@ export default function Navbar() {
   const sections = useMemo(() => [
     { name: '新闻', id: 'news' },
     { name: '活动', id: 'activities' },
-    { name: '橙锋杯', id: 'school-cup' },
     { name: '大工杯', id: 'dut-cup' },
     { name: '打卡', id: 'check-in' },
-    { name: '球星卡DIY', id: 'card-diy' },
+    { name: '球星卡DIY', id: 'card-diy', desktopOnly: true }, // 标记为仅桌面端显示
     { name: '联系方式', id: 'contact' }
   ], []);
 
   const [activeSection, setActiveSection] = useState('news');
   const [isVisible, setIsVisible] = useState(false); // 控制 Navbar 显示/隐藏
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // 移动端菜单状态
 
   // 监听滚动位置，控制 Navbar 显示/隐藏
   useEffect(() => {
@@ -76,6 +76,9 @@ export default function Navbar() {
 
   // 点击导航项滚动到对应section
   const scrollToSection = (sectionId: string) => {
+    // 关闭移动端菜单
+    setIsMobileMenuOpen(false);
+    
     // 检查当前页面是否为主页
     const isHomePage = window.location.pathname === '/';
     
@@ -96,23 +99,24 @@ export default function Navbar() {
     <div className={`fixed left-0 w-full z-50 transition-all duration-500 ease-in-out ${
       isVisible 
         ? 'top-0 opacity-100 translate-y-0' 
-        : '-top-[calc(8vh+14px)] opacity-0 -translate-y-full'
+        : '-top-[calc(8vh+14px)] md:-top-[calc(8vh+14px)] opacity-0 -translate-y-full'
     }`}>
       {/* Navbar */}
-      <nav className={`w-full shadow-lg flex items-center justify-between px-8 h-[8vh] backdrop-blur-md transition-colors duration-1000 ${
+      <nav className={`w-full shadow-lg flex items-center justify-between px-4 md:px-8 h-14 md:h-[8vh] backdrop-blur-md transition-colors duration-1000 ${
         theme === 'dark' ? 'bg-slate-800' : 'bg-[#1a214a]'
       }`}>
-        <span className={`font-extrabold text-2xl tracking-widest drop-shadow-lg select-none transition-colors duration-300 ${
+        <span className={`font-extrabold text-lg md:text-2xl tracking-widest drop-shadow-lg select-none transition-colors duration-300 ${
           theme === 'dark' ? 'text-blue-300' : 'text-blue-200'
         }`}>DLUT-EDA 足球社</span>
         
-        <div className="flex items-center space-x-6">
-          <ul className="flex space-x-6">
+        <div className="flex items-center space-x-3 md:space-x-6">
+          {/* 桌面端导航 */}
+          <ul className="hidden lg:flex space-x-4 xl:space-x-6">
             {sections.map(section => (
               <li
                 key={section.name}
                 onClick={() => scrollToSection(section.id)}
-                className={`relative font-semibold text-lg px-5 py-2 rounded-xl transition-all duration-300 cursor-pointer select-none
+                className={`relative font-semibold text-base xl:text-lg px-3 xl:px-5 py-2 rounded-xl transition-all duration-300 cursor-pointer select-none
                   hover:scale-105
                   ${activeSection === section.id 
                     ? 'bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 bg-clip-text text-transparent scale-110 font-bold' 
@@ -135,6 +139,7 @@ export default function Navbar() {
                 : 'bg-blue-800 hover:bg-blue-700 text-yellow-300'
             }`}
             title={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+            aria-label="切换主题"
           >
             {theme === 'dark' ? (
               // 太阳图标 (浅色模式)
@@ -148,11 +153,54 @@ export default function Navbar() {
               </svg>
             )}
           </button>
+
+          {/* 移动端汉堡菜单按钮 */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`lg:hidden p-2 rounded-lg transition-all duration-300 ${
+              theme === 'dark' 
+                ? 'bg-slate-700 hover:bg-slate-600 text-white' 
+                : 'bg-blue-800 hover:bg-blue-700 text-white'
+            }`}
+            aria-label="菜单"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
       </nav>
       
+      {/* 移动端下拉菜单 */}
+      <div className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+        isMobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+      } ${theme === 'dark' ? 'bg-slate-800/95' : 'bg-[#1a214a]/95'} backdrop-blur-md`}>
+        <ul className="py-2">
+          {sections
+            .filter(section => !section.desktopOnly) // 过滤掉仅桌面端的项
+            .map(section => (
+            <li
+              key={section.name}
+              onClick={() => scrollToSection(section.id)}
+              className={`px-6 py-3 font-semibold text-base cursor-pointer select-none transition-all duration-300
+                ${activeSection === section.id 
+                  ? 'bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 bg-clip-text text-transparent font-bold' 
+                  : `${theme === 'dark' ? 'text-gray-200' : 'text-white'}`
+                }
+                active:bg-white/10`}
+            >
+              {section.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+      
       {/* 渐变装饰条 - 作为整体的一部分 */}
-      <div className="w-full h-[14px] bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 animate-gradient-x"></div>
+      <div className="w-full h-[14px] md:h-[14px] bg-gradient-to-r from-cyan-400 via-orange-500 to-purple-900 animate-gradient-x"></div>
     </div>
   );
 }

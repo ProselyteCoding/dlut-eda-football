@@ -97,10 +97,10 @@ export default function VideoHero() {
       {/* 内容层 */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         {/* 标题区域 */}
-        <div className="text-center space-y-6 mb-12">
+        <div className="text-center space-y-4 md:space-y-6 mb-8 md:mb-12">
           {/* 主标题 */}
           <h1 
-            className={`text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight transition-colors duration-300 ${
+            className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight transition-colors duration-300 ${
               theme === 'dark'
                 ? 'text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]'
                 : 'text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]'
@@ -111,7 +111,7 @@ export default function VideoHero() {
           
           {/* 副标题 */}
           <h2 
-            className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide transition-colors duration-300 ${
+            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide transition-colors duration-300 ${
               theme === 'dark'
                 ? 'text-cyan-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]'
                 : 'text-blue-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]'
@@ -122,7 +122,7 @@ export default function VideoHero() {
 
           {/* 描述文字 */}
           <p 
-            className={`text-lg sm:text-xl lg:text-2xl font-medium max-w-3xl mx-auto transition-colors duration-300 ${
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl font-medium max-w-3xl mx-auto transition-colors duration-300 ${
               theme === 'dark'
                 ? 'text-gray-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]'
                 : 'text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]'
@@ -135,7 +135,7 @@ export default function VideoHero() {
         {/* 按钮 */}
         <button
           onClick={scrollToNews}
-          className={`group relative px-10 py-4 text-lg sm:text-xl font-bold rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105 ${
+          className={`group relative px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg md:text-xl font-bold rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105 ${
             theme === 'dark'
               ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-[0_8px_24px_rgba(6,182,212,0.5)]'
               : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-400 hover:to-indigo-500 text-white shadow-[0_8px_24px_rgba(59,130,246,0.5)]'
@@ -163,10 +163,11 @@ export default function VideoHero() {
           </span>
         </button>
 
-        {/* 滚动提示动画 */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        {/* 滚动提示动画 - 两条向下箭头 */}
+        <div className="absolute bottom-4 md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col animate-bounce">
+          {/* 第一条箭头 */}
           <svg 
-            className={`w-8 h-8 ${
+            className={`w-8 h-8 md:w-20 md:h-20 ${
               theme === 'dark' ? 'text-cyan-300' : 'text-white'
             }`}
             fill="none" 
@@ -176,8 +177,24 @@ export default function VideoHero() {
             <path 
               strokeLinecap="round" 
               strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+              strokeWidth={2.5} 
+              d="M5 10l7 5 7-5" 
+            />
+          </svg>
+          {/* 第二条箭头 */}
+          <svg 
+            className={`w-8 h-8 md:w-20 md:h-20 -mt-5 md:-mt-14 ${
+              theme === 'dark' ? 'text-cyan-300' : 'text-white'
+            }`}
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2.5} 
+              d="M5 10l7 5 7-5" 
             />
           </svg>
         </div>

@@ -2,9 +2,8 @@ import Navbar from "@/components/Navbar";
 import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import NewsContainer from "@/components/NewsContainer";
-import Activities from "@/components/Activities";
+import ActivitiesContainer from "@/components/ActivitiesContainer";
 import DutCup from "@/components/DutCup";
-import SchoolCup from "@/components/SchoolCup";
 import CheckIn from "@/components/CheckIn";
 import CardDIY from "@/components/CardDIY";
 import Contact from "@/components/Contact";
@@ -22,19 +21,18 @@ export default function Home() {
         <Section id="news">
           <NewsContainer />
         </Section>
-        <Section id="activities">
-          <Activities />
-        </Section>
-        <Section id="school-cup">
-          <SchoolCup />
-        </Section>
+        
+        {/* 活动部分：包含金秋杯、友谊赛、欧冠聚会三个section */}
+        <ActivitiesContainer />
+        
         <Section id="dut-cup">
           <DutCup />
         </Section>
         <Section id="check-in">
           <CheckIn />
         </Section>
-        <Section id="card-diy">
+        {/* 球星卡DIY - 仅在桌面端显示 */}
+        <Section id="card-diy" className="hidden lg:block">
           <CardDIY />
         </Section>
         <section 

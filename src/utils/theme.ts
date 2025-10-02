@@ -3,7 +3,7 @@ export const themeColors = {
   light: {
     // 浅色主题：活力而不刺激
     news: 'from-sky-50 to-blue-100',
-    activities: 'from-amber-50 to-yellow-100', 
+    autumncup: 'from-amber-50 to-yellow-100', 
     dutcup: 'from-emerald-50 to-green-100',
     schoolcup: 'from-purple-50 to-violet-100',
     checkin: 'from-cyan-50 to-teal-100',
@@ -13,7 +13,7 @@ export const themeColors = {
   dark: {
     // 深色主题：现代酷炫，避免土色调
     news: 'from-slate-900 via-blue-900 to-indigo-900',
-    activities: 'from-slate-900 via-orange-800 to-red-900', 
+    autumncup: 'from-slate-900 via-orange-800 to-red-900', 
     dutcup: 'from-slate-900 via-teal-800 to-cyan-900', 
     schoolcup: 'from-slate-900 via-indigo-800 to-blue-900',
     checkin: 'from-slate-900 via-sky-800 to-blue-900',

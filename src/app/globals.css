@@ -18,6 +18,40 @@
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
   }
+
+  /* 移动端优化 */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  /* 移动端安全区域 */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  }
 }
 
 @layer utilities {
@@ -30,7 +64,7 @@
   
   .animate-gradient-x {
     background-size: 200% 200%;
-    animation: gradient-x 6s ease-in-out infinite;
+    animation: gradient-x 4s ease-in-out infinite;
   }
 
   /* 渐变文字支持 */
@@ -41,5 +75,28 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient-x 6s ease-in-out infinite;
+  }
+
+  /* 触摸友好的按钮 */
+  .touch-friendly {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* 移动端文字优化 */
+  .mobile-text-optimized {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 隐藏滚动条 */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
   }
 }

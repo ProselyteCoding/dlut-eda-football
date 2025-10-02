@@ -327,11 +327,11 @@ export default function CardDIY() {
   return (
     <ThemedSection sectionKey="carddiy">
       {contextHolder}
-      <div className="h-screen w-full flex items-center justify-center overflow-hidden px-8">
-        <div className="flex items-center gap-8 max-w-7xl">
+      <div className="min-h-screen w-full flex items-center justify-center overflow-hidden px-4 py-8 md:px-8 md:py-0">
+        <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-8 max-w-7xl w-full">
           {/* 左侧：球星卡预览 */}
-          <div className="flex-shrink-0">
-            <div ref={cardRef} className="relative w-80 h-[450px]">
+          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center">
+            <div ref={cardRef} className="relative w-64 h-[360px] sm:w-80 sm:h-[450px]">
               {/* 背景卡片图片 */}
               <Image
                 src="/images/card-background.png"
@@ -452,13 +452,13 @@ export default function CardDIY() {
           </div>
 
           {/* 右侧：控制面板 */}
-          <div className="flex-shrink-0">
-            <div className={`w-[500px] rounded-xl p-5 border-2 transition-all duration-300 ${
+          <div className="flex-shrink-0 w-full lg:w-auto">
+            <div className={`w-full lg:w-[500px] rounded-xl p-4 md:p-5 border-2 transition-all duration-300 ${
               theme === 'dark'
                 ? 'bg-slate-900/80 backdrop-blur-md border-slate-700'
                 : 'bg-white/80 backdrop-blur-md border-gray-300'
             }`}>
-              <h2 className={`text-xl font-bold mb-4 transition-colors ${textColors[theme].primary}`}>
+              <h2 className={`text-lg md:text-xl font-bold mb-3 md:mb-4 transition-colors ${textColors[theme].primary}`}>
                 编辑球员信息
               </h2>
               
